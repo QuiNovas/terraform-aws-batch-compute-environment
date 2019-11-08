@@ -6,13 +6,7 @@ variable "bid_percentage" {
 
 variable "compute_environment_name" {
   type        = string
-  description = "The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, and undercores are allowed"
-}
-
-variable "compute_resources" {
-  type        = string
-  description = "Details of the compute resources managed by the compute environment. This parameter is required for managed compute environments"
-  default     = ""
+  description = "The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, and underscores are allowed"
 }
 
 variable "compute_resources_type" {
@@ -28,7 +22,7 @@ variable "desired_vcpus" {
 
 variable "ec2_key_pair" {
   type        = string
-  description = "The EC2 key pair thst is used for instances launched in the compute environment"
+  description = "The EC2 key pair is used for instances launched in the compute environment"
   default     = ""
 }
 
@@ -46,7 +40,7 @@ variable "instance_role" {
 
 variable "instance_type" {
   type        = list(string)
-  description = "A list of instance that may be launched"
+  description = "A list of instance types that may be launched"
 }
 
 variable "launch_template" {
@@ -55,7 +49,7 @@ variable "launch_template" {
     version            = string #The version number of the template. Default: The default version of the launch template
   }))
   description = "The launch template to use for your compute resource"
-  default = []
+  default     = []
 }
 
 variable "max_vcpus" {
