@@ -1,3 +1,15 @@
+variable "availability_zones" {
+  description = "The avaiability zones to use for the Cluster subnets, needed if subnets are not passed. So that necessary networking resources are created"
+  type        = list(string)
+  default     = []
+}
+
+variable "availability_zones_count" {
+  description = "The number of availability zones, needed if subnets are not passed.  So that necessary networking resources are created"
+  type        = number
+  default     = 0
+}
+
 variable "bid_percentage" {
   type        = number
   description = "Integer of minimum percentage that a Spot Instance price must be when compared with the On-Demand price for that Instance type before instances are launched. For example, if you bid percentage is 20% (20), then the Spot price must be bellow 20% of the current On-Demand price for that EC2 Instance. This parameter is required for SPOT compute environments"
@@ -14,9 +26,15 @@ variable "compute_resources_type" {
   description = "The type of compute environment. Valid items are EC2 or SPOT"
 }
 
+variable "cidr_block" {
+  description = "The CIDR block for the Compute environment VPC."
+  type        = "string"
+  default     = "172.16.0.0/16"
+}
+
 variable "desired_vcpus" {
   type        = number
-  description = "The desired number of EC2 vCPUS in the compute environment"
+  description = "The desired number of EC2 vCPUS in the compute environment, this number must be between min and max vcpus"
   default     = 0
 }
 
@@ -62,9 +80,16 @@ variable "min_vcpus" {
   description = "The minimum number of EC2 vCPUs that environment should maintain"
 }
 
+variable "prefix" {
+  type        = string
+  description = "Prefix which will be added to names of all the resources"
+  default     = ""
+}
+
 variable "security_group_ids" {
   type        = list(string)
   description = "A list of EC2 security group that are associated with instances launched in the compuite environments"
+  default     = []
 }
 
 variable "service_role" {
@@ -87,7 +112,8 @@ variable "state" {
 
 variable "subnets" {
   type        = list(string)
-  description = "A list of VPC subnets into which the compute resources are launched."
+  description = "A list of VPC subnets into which the compute resources are launched. Module will the necessary networking resources if this variable is not passed"
+  default     = []
 }
 
 variable "tags" {
