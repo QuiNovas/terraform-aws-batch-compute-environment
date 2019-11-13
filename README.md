@@ -14,7 +14,9 @@ Terraform 0.12
 ```hcl
 module "batch_compute_environment" {
   source = "QuiNovas/batch-compute-environment/aws"
-
+  availability_zones       = data.aws_availability_zones.available.names
+  availability_zones_count = 5
+  cidr_block               = "10.0.0.0/16"
   compute_environment_name = "test-terraform"
   compute_resources_type   = "SPOT"
   instance_type            = ["c4.large"]
@@ -36,6 +38,12 @@ module "batch_compute_environment" {
 
 By default this module will provision new service roles for batch, ec2 and spot fleet if they are not passed through variables.
 
+## Network Resources
+
+This module will create a VPC, a Internet Gateway, 2 or 3 Private subnets (one per az), 2 or 3 Public subnets (one per az), with 2 or 3 NATs in there respective az's/public subnets (along with necessary routing) If subnets are not passed in.
+
+The subnets are created by using 4 bits for masking on the given CIDR
+`availability_zones` and `availability_zones_count` variables are necessary if you want the vpc and other network resources are created by module.
 ## Inputs
 
 | Name | Description | Type | Default | Required |

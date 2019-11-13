@@ -27,6 +27,10 @@ output "private_subnet_ids" {
   value = "${join("", aws_subnet.private.*.id)}"
 }
 
+output "security_group_id" {
+  value = "${join("", aws_security_group.base_sg.*.id)}"
+}
+
 output "spot_fleet_role_arn" {
   value = "${join("", aws_iam_role.spot_fleet_role.*.arn)}"
 }
