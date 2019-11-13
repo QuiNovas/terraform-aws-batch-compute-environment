@@ -38,7 +38,6 @@ module "batch_compute_environment" {
 module "batch_compute_environment" {
   source = "QuiNovas/batch-compute-environment/aws"
 
-  cidr_block               = "10.0.0.0/16"
   compute_environment_name = "test-terraform"
   compute_resources_type   = "SPOT"
   instance_type            = ["optimal"]
