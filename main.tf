@@ -21,7 +21,7 @@ resource "aws_batch_compute_environment" "compute_environment" {
     min_vcpus           = var.min_vcpus
     security_group_ids  = flatten([var.security_group_ids, [aws_security_group.base_sg.0.id]])
     spot_iam_fleet_role = var.compute_resources_type != "SPOT" ? null : var.spot_iam_fleet_role == "" ? aws_iam_role.spot_fleet_role.0.arn : var.spot_iam_fleet_role
-    subnets             = length(var.subnets) == 0 ? aws_subnet.public.*.id : var.subnets
+    subnets             = length(var.subnets) == 0 ? aws_subnet.private.*.id : var.subnets
     type                = var.compute_resources_type
   }
 

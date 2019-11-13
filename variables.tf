@@ -16,6 +16,12 @@ variable "bid_percentage" {
   default     = 100
 }
 
+variable "cidr_block" {
+  description = "The CIDR block for the Compute environment VPC."
+  type        = "string"
+  default     = "172.16.0.0/16"
+}
+
 variable "compute_environment_name" {
   type        = string
   description = "The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, and underscores are allowed"
@@ -24,12 +30,6 @@ variable "compute_environment_name" {
 variable "compute_resources_type" {
   type        = string
   description = "The type of compute environment. Valid items are EC2 or SPOT"
-}
-
-variable "cidr_block" {
-  description = "The CIDR block for the Compute environment VPC."
-  type        = "string"
-  default     = "172.16.0.0/16"
 }
 
 variable "desired_vcpus" {
