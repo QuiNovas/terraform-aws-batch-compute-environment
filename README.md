@@ -11,15 +11,37 @@ Terraform 0.12
 
 ## Usage
 
+### with out passing any subnets
 ```hcl
 module "batch_compute_environment" {
   source = "QuiNovas/batch-compute-environment/aws"
+
   availability_zones       = data.aws_availability_zones.available.names
   availability_zones_count = 5
   cidr_block               = "10.0.0.0/16"
   compute_environment_name = "test-terraform"
   compute_resources_type   = "SPOT"
-  instance_type            = ["c4.large"]
+  instance_type            = ["optimal"]
+  max_vcpus                = 16
+  min_vcpus                = 1
+  desired_vcpus            = 1
+  spot_iam_fleet_role      = "arn:aws:iam:1234567890:role/aws-service-role/spotfleet.amazonaws.com/AWSServiceRoleForEC2SpotFleet"
+
+  tags = {
+    Terraform = "true"
+    Environment = "dev"
+  }
+}
+```
+### with passing subnets
+```hcl
+module "batch_compute_environment" {
+  source = "QuiNovas/batch-compute-environment/aws"
+
+  cidr_block               = "10.0.0.0/16"
+  compute_environment_name = "test-terraform"
+  compute_resources_type   = "SPOT"
+  instance_type            = ["optimal"]
   max_vcpus                = 16
   min_vcpus                = 1
   desired_vcpus            = 1
