@@ -1,5 +1,5 @@
 variable "availability_zones" {
-  description = "The avaiability zones to use for the Cluster subnets, needed if subnets are not passed. So that necessary networking resources are created"
+  description = "The avaiability zones for the subnets of compute environment, Required if subnets created outside the module are not passed in. So that necessary networking resources are created"
   type        = list(string)
   default     = []
 }
@@ -12,13 +12,8 @@ variable "bid_percentage" {
 
 variable "cidr_block" {
   description = "The CIDR block for the Compute environment VPC."
-  type        = "string"
-  default     = "172.16.0.0/16"
-}
-
-variable "compute_environment_name" {
   type        = string
-  description = "The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, and underscores are allowed"
+  default     = "192.168.0.0/16"
 }
 
 variable "compute_resources_type" {
@@ -74,10 +69,9 @@ variable "min_vcpus" {
   description = "The minimum number of EC2 vCPUs that environment should maintain"
 }
 
-variable "prefix" {
+variable "name" {
+  description = "The name of resources created, used either directly or as a prefix."
   type        = string
-  description = "Prefix which will be added to names of all the resources"
-  default     = ""
 }
 
 variable "security_group_ids" {

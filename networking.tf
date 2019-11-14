@@ -7,7 +7,7 @@ resource "aws_vpc" "vpc" {
   count      = local.network_resources_needed ? 1 : 0
   cidr_block = "${var.cidr_block}"
   tags = {
-    Name = "${var.prefix}-batch"
+    Name = var.name
   }
 }
 
@@ -17,7 +17,7 @@ resource "aws_internet_gateway" "igw" {
 
   tags = merge(
     {
-      "Name" = format("%s", "${var.prefix}-batch")
+      "Name" = format("%s", var.name)
     },
     var.tags
   )
@@ -34,7 +34,7 @@ resource "aws_subnet" "public" {
     {
       "Name" = format(
         "%s-public-%s",
-        var.prefix,
+        var.name,
         element(random_shuffle.az.result, count.index),
       )
     },
@@ -53,7 +53,7 @@ resource "aws_subnet" "private" {
     {
       "Name" = format(
         "%s-private-%s",
-        var.prefix,
+        var.name,
         element(random_shuffle.az.result, count.index),
       )
     },
@@ -68,7 +68,7 @@ resource "aws_route_table" "public" {
 
   tags = merge(
     {
-      "Name" = format("%s-public", "${var.prefix}-batch")
+      "Name" = format("%s-public", var.name)
     },
     var.tags
   )
@@ -103,7 +103,7 @@ resource "aws_eip" "nat" {
     {
       "Name" = format(
         "%s-%s",
-        "${var.prefix}-batch",
+        var.name,
         element(random_shuffle.az.result, count.index),
       )
     },
@@ -122,7 +122,7 @@ resource "aws_nat_gateway" "ngw" {
     {
       "Name" = format(
         "%s-%s",
-        "${var.prefix}-batch",
+        var.name,
         element(random_shuffle.az.result, count.index),
       )
     },
@@ -153,7 +153,7 @@ resource "aws_route_table" "private" {
     {
       "Name" = format(
         "%s-private-%s",
-        "${var.prefix}-batch",
+        var.name,
         element(random_shuffle.az.result, count.index),
       )
     },
@@ -191,10 +191,10 @@ resource "aws_security_group" "base_sg" {
     self      = true
   }
 
-  name   = "${var.prefix}-batch"
+  name   = var.name
   vpc_id = "${aws_vpc.vpc.0.id}"
 
   tags = {
-    Name = "${var.prefix}-batch"
+    Name = var.name
   }
 }

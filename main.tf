@@ -1,5 +1,5 @@
 resource "aws_batch_compute_environment" "compute_environment" {
-  compute_environment_name = "${var.prefix}-${var.compute_environment_name}"
+  compute_environment_name = var.name
 
   compute_resources {
     bid_percentage = var.compute_resources_type == "SPOT" ? var.bid_percentage : null
