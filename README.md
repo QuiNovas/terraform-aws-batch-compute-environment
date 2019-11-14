@@ -92,7 +92,7 @@ A list of `availability_zones` is necessary if you want the vpc and other networ
 | service\_role | The full Amazon Resource Name(ARN) of the IAM role that allows AES Batch to make calls to other AWS services on you behalf, If not provided module will create the role | string | `""` | no |
 | spot\_iam\_fleet\_role | The Amazon Resource Name (ARN) of the Amazon EC2 Spot Fleet IAM role applied to a SPOT compute environment. This parameter is required for SPOT compute environment. When compute\_resources\_type is SPOT and if this role arn is not provided then module will create one | string | `""` | no |
 | state | The state of the compute environment. If the state id ENABLED, then the compute environment accepts jobs from a queue and can scale out automatically based on queues. Valid items are ENABLED or DISABLED. Default to ENABLED | string | `"ENABLED"` | no |
-| subnets | A list of VPC subnets into which the compute resources are launched. | list(string) | | yes |
+| subnets | A list of VPC subnets into which the compute resources are launched. | list(string) | `[]` | no |
 | tags | Key-value pair tags to be applied to resource that are launched in the compute environment | map(string) | `{}` | no |
 | type | The type of the compute environment. Valid items are MANAGED or UNMANAGED | string | | yes |
 
