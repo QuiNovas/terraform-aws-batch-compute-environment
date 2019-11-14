@@ -1,6 +1,6 @@
 locals {
   network_resources_needed = length(var.subnets) == 0 ? true : false
-  subnets_count            = var.availability_zones_count > 2 ? 3 : 2
+  subnets_count            = length(var.availability_zones) > 2 ? 3 : 2
 
   private_subnets = local.subnets_count == 3 ? [
     cidrsubnet(var.cidr_block, 4, 3),
