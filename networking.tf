@@ -5,7 +5,7 @@ resource "random_shuffle" "az" {
 
 resource "aws_vpc" "vpc" {
   count      = local.network_resources_needed ? 1 : 0
-  cidr_block = "${var.cidr_block}"
+  cidr_block = var.cidr_block
   tags = {
     Name = var.name
   }
@@ -192,7 +192,7 @@ resource "aws_security_group" "base_sg" {
   }
 
   name   = var.name
-  vpc_id = "${aws_vpc.vpc.0.id}"
+  vpc_id = aws_vpc.vpc.0.id
 
   tags = {
     Name = var.name
