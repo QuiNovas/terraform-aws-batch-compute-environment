@@ -24,9 +24,12 @@ resource "aws_batch_compute_environment" "compute_environment" {
     subnets             = length(var.subnets) == 0 ? aws_subnet.private.*.id : var.subnets
     type                = var.compute_resources_type
 
-    tags = {
-      Name = var.name
-    }
+    tags = merge(
+      {
+        "Name" = format("%s", var.name)
+      },
+      var.tags
+    )
   }
 
   service_role = var.service_role == "" ? aws_iam_role.aws_batch_service_role.0.arn : var.service_role
