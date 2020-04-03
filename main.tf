@@ -23,6 +23,10 @@ resource "aws_batch_compute_environment" "compute_environment" {
     spot_iam_fleet_role = var.compute_resources_type != "SPOT" ? null : var.spot_iam_fleet_role == "" ? aws_iam_role.spot_fleet_role.0.arn : var.spot_iam_fleet_role
     subnets             = length(var.subnets) == 0 ? aws_subnet.private.*.id : var.subnets
     type                = var.compute_resources_type
+
+    tags = {
+      Name = var.name
+    }
   }
 
   service_role = var.service_role == "" ? aws_iam_role.aws_batch_service_role.0.arn : var.service_role
