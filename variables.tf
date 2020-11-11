@@ -4,6 +4,13 @@ variable "availability_zones" {
   default     = []
 }
 
+
+variable "allocation_strategy" {
+  description = "The allocation strategy to use for the compute resource in case not enough instances of the best fitting instance type can be allocated."
+  type        = string
+  default     = "BEST_FIT_PROGRESSIVE"
+}
+
 variable "bid_percentage" {
   type        = number
   description = "Integer of minimum percentage that a Spot Instance price must be when compared with the On-Demand price for that Instance type before instances are launched. For example, if you bid percentage is 20% (20), then the Spot price must be bellow 20% of the current On-Demand price for that EC2 Instance. This parameter is required for SPOT compute environments"

@@ -2,12 +2,13 @@ resource "aws_batch_compute_environment" "compute_environment" {
   compute_environment_name = var.name
 
   compute_resources {
-    bid_percentage = var.compute_resources_type == "SPOT" ? var.bid_percentage : null
-    desired_vcpus  = var.desired_vcpus
-    ec2_key_pair   = var.ec2_key_pair
-    image_id       = var.image_id
-    instance_role  = var.instance_role == "" ? aws_iam_instance_profile.ecs_instance_role.0.arn : var.instance_role
-    instance_type  = var.instance_type
+    allocation_strategy = var.compute_resources_type == "SPOT" ? "SPOT_CAPACITY_OPTIMIZED" : var.allocation_strategy
+    bid_percentage      = var.compute_resources_type == "SPOT" ? var.bid_percentage : null
+    desired_vcpus       = var.desired_vcpus
+    ec2_key_pair        = var.ec2_key_pair
+    image_id            = var.image_id
+    instance_role       = var.instance_role == "" ? aws_iam_instance_profile.ecs_instance_role.0.arn : var.instance_role
+    instance_type       = var.instance_type
 
     dynamic "launch_template" {
       for_each = var.launch_template
