@@ -18,43 +18,49 @@ data "aws_availability_zones" "available" {
 }
 
 module "batch_compute_environment" {
+
   source = "QuiNovas/batch-compute-environment/aws"
 
-  availability_zones       = data.aws_availability_zones.available.names
-  cidr_block               = "172.16.0.0/16"
-  compute_resources_type   = "SPOT"
-  desired_vcpus            = 1
-  instance_type            = ["optimal"]
-  max_vcpus                = 16
-  min_vcpus                = 1
-  desired_vcpus            = 1
-  spot_iam_fleet_role      = "arn:aws:iam:1234567890:role/aws-service-role/spotfleet.amazonaws.com/AWSServiceRoleForEC2SpotFleet"
+  name                   = "test-terraform"
+  type                   = "MANAGED"
+  compute_resources_type = "SPOT"
+  instance_type          = ["optimal"]
+  min_vcpus              = 0
+  desired_vcpus          = 0
+  max_vcpus              = 16
+
+  availability_zones     = data.aws_availability_zones.available.names
+  cidr_block             = "10.0.0.0/16"
 
   tags = {
     Terraform = "true"
     Environment = "dev"
   }
+
 }
 ```
 ### with passing subnets
 ```hcl
 module "batch_compute_environment" {
+
   source = "QuiNovas/batch-compute-environment/aws"
   
-  compute_resources_type   = "SPOT"
-  desired_vcpus            = 1  
-  instance_type            = ["optimal"]
-  max_vcpus                = 16
-  min_vcpus                = 1
-  name                     = "test-terraform"
-  security_group_ids       = ["sg-1fd1106f"]
-  subnets                  = ["subnet-a59faaed", "subnet-60eef25c"]
-  spot_iam_fleet_role      = "arn:aws:iam:1234567890:role/aws-service-role/spotfleet.amazonaws.com/AWSServiceRoleForEC2SpotFleet"
+  name                   = "test-terraform"
+  type                   = "MANAGED"
+  compute_resources_type = "SPOT"
+  instance_type          = ["optimal"]
+  min_vcpus              = 0
+  desired_vcpus          = 0
+  max_vcpus              = 16
+
+  security_group_ids     = ["sg-1fd1106f"]
+  subnets                = ["subnet-a59faaed", "subnet-60eef25c"]
 
   tags = {
     Terraform = "true"
     Environment = "dev"
   }
+
 }
 ```
 
