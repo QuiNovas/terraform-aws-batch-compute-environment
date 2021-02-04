@@ -5,9 +5,11 @@ Creates a AWS Batch compute environment. Compute environments contain the Amazon
 
 * [Terraform documentation](https://www.terraform.io/docs/providers/aws/r/batch_compute_environment.html)
 
+## Note
+FARGATE and FARGATE_SPOT type of Compute environments are not currently supported
 ## Terraform versions
 
-Terraform 0.12
+Terraform >=0.12
 
 ## Usage
 
