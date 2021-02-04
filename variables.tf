@@ -6,7 +6,7 @@ variable "availability_zones" {
 
 
 variable "allocation_strategy" {
-  description = "The allocation strategy to use for the compute resource in case not enough instances of the best fitting instance type can be allocated."
+  description = "The allocation strategy to use for the compute resource in case not enough instances of the best fitting instance type can be allocated. Valid items are BEST_FIT_PROGRESSIVE, SPOT_CAPACITY_OPTIMIZED or BEST_FIT"
   type        = string
   default     = "BEST_FIT_PROGRESSIVE"
 }
